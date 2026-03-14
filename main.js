@@ -5,7 +5,7 @@ var animationFirstChapter = gsap.timeline({
     scrollTrigger: {
         trigger: ".first-chapter",
         start: "0px top",
-        end: "+=2520% center",
+        end: "+=4520% center",
         scrub: 1,
         pin: true,
         toggleActions: "restart none none none"
@@ -17,7 +17,7 @@ var animationFirstChapter = gsap.timeline({
  animationFirstChapter.to("#rect_yellow",{opacity:0},"entry_label")
  .to("#septer",{scale:0.07, transformOrigin: "center top", x:1000, y: 2250})
  .to("#septer",{duration: 1, x: 1500, rotation: -30, transformOrigin: "center center"}, "#septer_label")
- .to("#glow",{duration: 1, opacity:0.5, transformOrigin: "center center", scale: 5}, "septer_label")
+ .to("#glow",{duration: 0.5, opacity:0.5, transformOrigin: "center center", scale: 5}, "septer_label")
  .to("#balls",{opacity:1, duration:1}, "septer_label")
  .to("#glow",{duration: 0.5, opacity:0, transformOrigin: "center center", scale: 0}, "no_glow_label")
  .to("#b17",{x:200, y: 250, duration:0.2}, "balls")
