@@ -1,0 +1,14 @@
+.first-chapter{
+    width: 1440px;
+    height: 779px;
+    overflow: hidden;
+}
+
+.frame{
+    transform: translate(-274px, 377px);
+    scale: 3.13;
+}
+
+.r{
+    fill: yellow !important;
+}
