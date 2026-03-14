@@ -1,39 +1,16 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// var animationScroll = gsap.timeline({
-//     scrollTrigger:{
-//     trigger:".enterance",
-//     start:"10px top",
-//     end:"500px top",
-//     scrub:2,
-//     toggleActions:"restart none none reverse",
-//     }
-// })
-
-// var startValue = getComputedStyle(document.documentElement).getPropertyValue('--start_value');
-// startValue = parseInt(startValue.trim());
-// var start = startValue + "px 500px";
-// var animationSubtitles = gsap.timeline({
-//     scrollTrigger:{
-//         trigger:".first_chapter",
-//         start: start,
-//         end:"+=4520% top",
-//         scrub:true,
-//         toggleActions:"restart none none reverse",
-//     }
-// })
 
 var animationFirstChapter = gsap.timeline({
     scrollTrigger: {
         trigger: ".first-chapter",
         start: "0px top",
-        end: "+=4520% top",
+        end: "+=2520% center",
         scrub: 1,
         pin: true,
         toggleActions: "restart none none none"
     }
 });
-
 
 
 
@@ -196,13 +173,9 @@ var animationFirstChapter = gsap.timeline({
  .to("#prison",{opacity: 0}, "prison_disappear")
  .to("#rect_door",{opacity: 0}, "prison_disappear")
 
- .to("#js",{opacity: 1})
- .to("#js",{opacity: 1})
- .to("#js",{opacity: 1})
-
-
- 
- .to("#time",{opacity: 1, duration: 10})
+ .to("#node",{opacity: 1})
+ .to("#react",{opacity: 1})
+ .to("#electron",{opacity: 1})
 
 
 
