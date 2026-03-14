@@ -57,6 +57,46 @@ var animationFirstChapter = gsap.timeline({
  .to("#b12",{x:-0, y: 0, duration:0.6}, "nballs")
  .to("#balls",{display: "none"}, "balls_remove")
  .to("#septer",{duration: 1, x: 1000, rotation: -10, transformOrigin: "center center"})
+ .to("#septer",{opacity: 0}, "transition")
+
+ .to("#ie",{opacity: 1}, "transition")
+ .to("#netscape",{opacity: 1}, "transition")
+ 
+ .to("#n_face",{opacity: 1})
+ .to("#n_face",{y: 10, duration: 0.1})
+ .to("#n_face",{y: 0, duration: 0.1})
+ .to("#n_face",{y: 10, duration: 0.1})
+ .to("#n_face",{y: 0, duration: 0.1})
+ .to("#n_face",{y: 10, duration: 0.1})
+ .to("#n_face",{y: 0, duration: 0.1})
+ .to("#n_face",{y: 10, duration: 0.1})
+ .to("#n_face",{y: 0, duration: 0.1})
+ .to("#w_gun",{opacity: 1})
+ .to("#w_gun",{opacity: 1, transformOrigin: "center center", rotation:-25})
+ .to("#water",{opacity: 1})
+ .to("#water",{opacity: 0, duration: 0.1}, "splash")
+ .to("#w_gun",{opacity: 1, transformOrigin: "center center", rotation:0}, "splash")
+ .to("#w_gun",{opacity: 0}, "face_transition")
+ .to("#n_face",{opacity: 0})
+ .to("#ie_face",{opacity: 1})
+ .to("#rpg",{opacity: 1})
+ .to("#rpg",{rotation: -35, transformOrigin: "center center"})
+ 
+ .to("#rpg",{x:20}, "launch")
+ .to("#rpg",{x:0}, "launch")
+ .to("#rocket",{x: -600, y:-400}, "launch")
+
+ .to("#boom",{opacity: 1}, "logo_change")
+ .to("#rocket",{opacity: 0}, "logo_change")
+ .to("#mozilla",{opacity: 1}, "logo_change")
+ .to("#netscape",{opacity: 0}, "logo_change")
+
+ .to("#rpg",{rotation: 20, transformOrigin: "center right", x: 250, y: 100})
+
+ .to("#ie_face",{opacity: 0}, "no_rpg")
+ .to("#rpg",{opacity: 0}, "no_rpg")
+
+ .to("#boom",{opacity: 0})
 
  
 
