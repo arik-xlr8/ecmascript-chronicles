@@ -1,12 +1,12 @@
 .first-chapter{
     width: 1440px;
-    height: 779px;
+    height: 788px;
     overflow: hidden;
 }
 
 .frame{
-    transform: translate(-274px, 377px);
-    scale: 3.13;
+    transform: translate(-274px, 382px);
+    scale: 3.16;
 }
 
 .r{
