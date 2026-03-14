@@ -98,7 +98,112 @@ var animationFirstChapter = gsap.timeline({
 
  .to("#boom",{opacity: 0})
 
+ .to("#mozilla",{opacity: 0}, "transition_two")
+ .to("#ie",{opacity: 0}, "transition_two")
+ .to("#lines",{y: -20}, "transition_two")
+ .to("#date",{y: 100}, "transition_two")
  
+
+ .to("#dates",{opacity: 1}, "date_roll")
+ .to("#lines",{y: 0}, "date_roll")
+ .to("#date",{y: 0}, "date_roll")
+ .to("#dates",{opacity: 0})
+
+ .to("#brendon",{opacity: 1})
+ .to("#fast_text",{opacity: 1})
+ .to("#we",{opacity: 1})
+ .to("#fast",{opacity: 1})
+
+ .to("#eye_red",{opacity: 1}, "anger")
+ .to("#eye_red-2",{opacity: 1}, "anger")
+
+ .to("#eye_glow",{opacity: 0.5}, "anger_glow")
+ .to("#eye_glow-2",{opacity: 0.5}, "anger_glow")
+
+ .to("#brendon",{opacity: 0})
+ .to("#fast_text",{opacity: 0})
+
+ .to("#anvil",{opacity: 1})
+ .to("#hammer",{opacity: 1})
+ .to("#mocha",{opacity: 1})
+
+ .to("#hammer",{y:-50}, "hammer")
+ .to("#hammer",{rotation: -60, transformOrigin: "center center", y:50})
+ .to("#sparkles",{opacity: 1, duration: 0.1})
+ .to("#sparkles",{opacity: 0, duration: 0.1})
+ .to("#hammer",{y:-50, rotation: 0, transformOrigin: "center center"})
+
+ .to("#hammer",{rotation: -60, transformOrigin: "center center", y:50})
+ .to("#sparkles",{opacity: 1, duration: 0.1})
+ .to("#sparkles",{opacity: 0, duration: 0.1})
+ .to("#hammer",{y:-50, rotation: 0, transformOrigin: "center center"})
+
+ .to("#hammer",{rotation: -60, transformOrigin: "center center", y:50})
+ .to("#sparkles",{opacity: 1, duration: 0.1})
+ .to("#sparkles",{opacity: 0, duration: 0.1})
+ .to("#hammer",{y:-50, rotation: 0, transformOrigin: "center center"})
+
+ .to("#hammer",{rotation: -60, transformOrigin: "center center", y:50})
+ .to("#sparkles",{opacity: 1, duration: 0.1})
+ .to("#sparkles",{opacity: 0, duration: 0.1})
+ .to("#hammer",{y:-50, rotation: 0, transformOrigin: "center center"})
+ 
+
+ .to("#anvil",{opacity: 0})
+ .to("#hammer",{opacity: 0})
+
+ .to("#mocha",{transformOrigin: "center center", scale: 4})
+ .to("#flame",{opacity: 0}, "mocha")
+ .to("#septer",{scale: 1.2, opacity:0, y: 5000, x: -180, rotation: 1}, "mocha")
+
+ .to("#septer",{opacity: 1}, "mocha_disappear")
+ .to("#mocha",{opacity: 0}, "mocha_disappear") 
+ .to("#glow",{scale: 0.1}, "mocha_disappear")
+ .to("#glow",{opacity: 1, scale: 10})
+ 
+ .to("#rect_door",{opacity: 1}, "prison")
+ .to("#prison",{opacity: 1}, "prison")
+ .to("#glow",{opacity: 0, scale: 1}, "disappear")
+ .to("#septer",{opacity: 1, scale: 0.5, y: 3500, x: 550}, "disappear")
+
+ .to("#d1",{opacity: 0}, "disappear")
+ .to("#d2",{opacity: 0}, "disappear")
+ .to("#d3",{opacity: 0}, "disappear")
+ .to("#d4",{opacity: 0}, "disappear")
+ .to("#d5",{opacity: 0}, "disappear")
+ .to("#d6",{opacity: 0}, "disappear")
+ .to("#d7",{opacity: 0}, "disappear")
+
+ .to("#js",{opacity: 1}, "disappear")
+ .to("#my_hand",{x: 250}, "disappear")
+ .to("#my_hand",{opacity: 1})
+ .to("#rect_door",{x:-2000,duration:0.9})
+  .to("#big_circle",{transformOrigin:"center center",rotate : 30,duration:1.2},"circles")
+  .to("#little_circle",{transformOrigin:"center center",rotate : -35,duration:1.2},"circles")
+  .to(".first_wall_part",{x:2000,duration:0.8},"walls")
+  .to(".second_wall_part",{x:-2000,duration:0.8},"walls")
+  
+  .to("#glow",{opacity: 0.3, y: -100, x: -20, transformOrigin: "center center", rotation: 350})
+  .to("#my_hand",{x:-500,y:220,transformOrigin:"center center",rotate:-5,duration:1.5}, "hand")
+  .to("#glow",{ rotation: 710, duration: 1.5}, "hand")
+  .to("#my_hand",{y:124,transformOrigin:"center center",rotate:0,duration:0.5},"final")
+  .to("#js",{y: -224}, "final")
+  .to("#glow",{y: -254, rotation: 1070, scale: 2, transformOrigin: "center center"}, "final")
+  .to("#my_hand",{x:700,duration:0.6},"finall")
+  .to("#js",{x: 1924}, "finall")
+  .to("#glow",{x: 2925 , rotation: 1430, scale: 3, transformOrigin: "center center"}, "finall")
+
+ .to("#prison",{opacity: 0}, "prison_disappear")
+ .to("#rect_door",{opacity: 0}, "prison_disappear")
+
+ .to("#js",{opacity: 1})
+ .to("#js",{opacity: 1})
+ .to("#js",{opacity: 1})
+
+
+ 
+ .to("#time",{opacity: 1, duration: 10})
+
 
 
  
