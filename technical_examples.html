@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather Application</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 500px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .search-box {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    button {
+      padding: 12px 16px;
+      border: none;
+      border-radius: 10px;
+      background: #00c6ff;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .error {
+      margin-top: 15px;
+      color: #ffd4d4;
+      background: rgba(255, 0, 0, 0.15);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .label {
+      opacity: 0.8;
+      font-size: 14px;
+    }
+
+    .value {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .mini-box {
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .loading {
+      margin-top: 12px;
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Weather</h1>
+
+    <div class="search-box">
+      <input type="text" id="cityInput" placeholder="Enter a city (e.g. Antalya)" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <div id="loadingText" class="loading hidden">Loading...</div>
+    <div id="errorBox" class="error hidden"></div>
+
+    <div id="resultBox" class="result hidden">
+      <div class="label">City</div>
+      <div id="cityName" class="value">-</div>
+
+      <div class="label">Temperature</div>
+      <div id="temperature" class="value">-</div>
+
+      <div class="mini-grid">
+        <div class="mini-box">
+          <div class="label">Wind</div>
+          <div id="wind" class="value" style="font-size:18px;">-</div>
+        </div>
+
+        <div class="mini-box">
+          <div class="label">Time</div>
+          <div id="time" class="value" style="font-size:18px;">-</div>
+        </div>
+
+        <div class="mini-box">
+          <div class="label">Latitude</div>
+          <div id="lat" class="value" style="font-size:18px;">-</div>
+        </div>
+
+        <div class="mini-box">
+          <div class="label">Longitude</div>
+          <div id="lon" class="value" style="font-size:18px;">-</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 1) Select elements
+    const cityInput = document.querySelector("#cityInput");
+    const searchBtn = document.querySelector("#searchBtn");
+    const loadingText = document.querySelector("#loadingText");
+    const errorBox = document.querySelector("#errorBox");
+    const resultBox = document.querySelector("#resultBox");
+
+    const cityName = document.querySelector("#cityName");
+    const temperature = document.querySelector("#temperature");
+    const wind = document.querySelector("#wind");
+    const time = document.querySelector("#time");
+    const lat = document.querySelector("#lat");
+    const lon = document.querySelector("#lon");
+
+    // 2) Helper function that converts weather codes to readable descriptions
+    function getWeatherDescription(code) {
+      const weatherCodes = {
+        0: "Clear sky",
+        1: "Mostly clear",
+        2: "Partly cloudy",
+        3: "Overcast",
+        45: "Fog",
+        48: "Rime fog",
+        51: "Light drizzle",
+        53: "Moderate drizzle",
+        55: "Heavy drizzle",
+        61: "Light rain",
+        63: "Moderate rain",
+        65: "Heavy rain",
+        71: "Light snow",
+        73: "Moderate snow",
+        75: "Heavy snow",
+        80: "Light showers",
+        81: "Moderate showers",
+        82: "Violent showers",
+        95: "Thunderstorm"
+      };
+
+      return weatherCodes[code] || "Unknown weather condition";
+    }
+
+    // 3) Find coordinates based on city name
+    async function getCoordinates(city) {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Failed to retrieve city information.");
+      }
+
+      const data = await response.json();
+
+      if (!data.results || data.results.length === 0) {
+        throw new Error("City not found");
+      }
+
+      return data.results[0];
+    }
+
+    // 4) Fetch weather data using coordinates
+    async function getWeather(latitude, longitude) {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,wind_speed_10m,weather_code`;
+
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("No weather data found");
+      }
+
+      const data = await response.json();
+      return data;
+    }
+
+    // 5) Display result on the screen
+    function showWeather(location, weatherData) {
+      cityName.textContent = `${location.name}, ${location.country || ""}`;
+      temperature.textContent = `${weatherData.current.temperature_2m}°C - ${getWeatherDescription(weatherData.current.weather_code)}`;
+      wind.textContent = `${weatherData.current.wind_speed_10m} km/h`;
+      time.textContent = weatherData.current.time;
+      lat.textContent = location.latitude;
+      lon.textContent = location.longitude;
+
+      resultBox.classList.remove("hidden");
+    }
+
+    // 6) Show error
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.classList.remove("hidden");
+    }
+
+    function clearUI() {
+      errorBox.classList.add("hidden");
+      errorBox.textContent = "";
+      resultBox.classList.add("hidden");
+    }
+
+    // 7) Main logic
+    async function handleSearch() {
+      const city = cityInput.value.trim();
+
+      clearUI();
+
+      if (city === "") {
+        showError("Enter a city name");
+        return;
+      }
+
+      try {
+        loadingText.classList.remove("hidden");
+
+        const location = await getCoordinates(city);
+        const weatherData = await getWeather(location.latitude, location.longitude);
+
+        showWeather(location, weatherData);
+      } catch (error) {
+        showError(error.message);
+      } finally {
+        loadingText.classList.add("hidden");
+      }
+    }
+
+    // 8) Search when button is clicked
+    searchBtn.addEventListener("click", handleSearch);
+
+    // 9) Search when Enter key is pressed
+    cityInput.addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        handleSearch();
+      }
+    });
+  </script>
+</body>
+</html>
